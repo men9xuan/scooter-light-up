@@ -2,11 +2,11 @@
 #define STB_PIN_LIGHT 10 // Pin number for strobe light output
 #define STB_BLINK_INTERVAL 2000000 // Blink interval for strobe light in microseconds
 
-// Anti-collision beacon settings
-#define ACB1_PIN_LIGHT 5 // Pin number for anti-collision beacon 1
-#define ACB_FADE_MIN 0 // Minimum fade level for beacon (0-255)
-#define ACB_FADE_MAX 255 // Maximum fade level for beacon (0-255)
-#define ACB_FADE_INTERVAL 4000 // Fade step interval, in microseconds (lower numbers = faster fade)
+//  adesettings
+#define FADE_PIN_LIGHT 5 // Pin number for fade light output
+#define FADE_MIN 0 // Minimum fade level for beacon (0-255)
+#define FADE_MAX 255 // Maximum fade level for beacon (0-255)
+#define FADE_INTERVAL 4000 // Fade step interval, in microseconds (lower numbers = faster fade)
 
 // Var declarations
 unsigned long lastFadeTime = 0;
@@ -19,7 +19,7 @@ void setup()
 //  pinMode(LL_PIN_LIGHT, OUTPUT);
   pinMode(STB_PIN_LIGHT, OUTPUT);
 //  pinMode(STB_PIN_LIGHTB, OUTPUT);
-  pinMode(ACB1_PIN_LIGHT, OUTPUT);
+  pinMode(FADE_PIN_LIGHT, OUTPUT);
 //  pinMode(ACB2_PIN_LIGHT, OUTPUT);
   
 }
@@ -31,7 +31,7 @@ void loop()
   unsigned long currentTime = micros();
  
   // Check if it's time to fade the anti-collision lights
-  if ((currentTime - lastFadeTime) > ACB_FADE_INTERVAL) {
+  if ((currentTime - lastFadeTime) > FADE_INTERVAL) {
     doFade();
     lastFadeTime = currentTime;
   }
@@ -44,14 +44,14 @@ void loop()
 }
 
 
-// Fade anti-collision LEDs
+// Fade 
 void doFade()
 {
   currentFade += fadeDirection;
-  if (currentFade == ACB_FADE_MAX || currentFade == ACB_FADE_MIN) {
+  if (currentFade == FADE_MAX || currentFade == FADE_MIN) {
     // If we hit the fade limit, flash the high beacon, and flip the fade direction
     if (fadeDirection == 1) {
-      analogWrite(ACB1_PIN_LIGHT, 255);
+      analogWrite(FADE_PIN_LIGHT, 255);
     }
 
 //    } else {
@@ -60,12 +60,11 @@ void doFade()
     delay(50); 
     fadeDirection *= -1; 
   }
-
-  analogWrite(ACB1_PIN_LIGHT, currentFade);
-//  analogWrite(ACB2_PIN_LIGHT, ACB_FADE_MAX - currentFade + ACB_FADE_MIN);
+  analogWrite(FADE_PIN_LIGHT, currentFade);
+//  analogWrite(FADE_PIN_LIGHT, FADE_MAX - currentFade + FADE_MIN);
 }
 
-// Strobe double-blink
+// Strobe
 void doStrobe()
 {
   digitalWrite(STB_PIN_LIGHT, HIGH);
