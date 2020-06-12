@@ -11,7 +11,7 @@
 // Var declarations
 unsigned long lastFadeTime = 0;
 unsigned long lastStrobeTime = 0;
-int currentFade = ACB_FADE_MIN;
+int currentFade = FADE_MIN;
 int fadeDirection = 1;
 void setup()
 {
