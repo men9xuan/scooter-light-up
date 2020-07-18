@@ -1,5 +1,5 @@
 # scooter-light-up
-Arduino code along with circuit to control LED lights on a scooter (or on a car)
+Arduino codes along with circuit to control LED lights on a scooter (or on a car)
 
 Wiring and circuit can be found on 
 https://bildr.org/2012/03/rfp30n06le-arduino/
